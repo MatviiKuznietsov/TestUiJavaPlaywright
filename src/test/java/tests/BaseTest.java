@@ -16,16 +16,16 @@ public class BaseTest {
     @BeforeClass
     public void setUp() {
         playwright = Playwright.create();
-        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true).setSlowMo(50));
+        browser = playwright.chromium().launch(); //new BrowserType.LaunchOptions().setHeadless(true).setSlowMo(50)
         context = browser.newContext();
         page = context.newPage();
     }
 
-    @AfterClass
-    public void tearDown() {
-        page.close();
-        context.close();
-        browser.close();
-        playwright.close();
-    }
+//    @AfterClass
+//    public void tearDown() {
+//        page.close();
+//        context.close();
+//        browser.close();
+//        playwright.close();
+//    }
 }
