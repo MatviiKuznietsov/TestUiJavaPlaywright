@@ -1,6 +1,6 @@
-name: Java CI
+name: Java Tests
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -16,12 +16,18 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
 
-      - name: Build with Gradle
-        run: ./gradlew build
-        env:
-          MY_APP_PASSWORD: ${{ secrets.MY_APP_PASSWORD }}
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-      - name: Run application
-        run: java -cp build/libs/your-app.jar SecureConfig
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
+      - name: Run Tests
+        run: mvn test
         env:
           MY_APP_PASSWORD: ${{ secrets.MY_APP_PASSWORD }}
