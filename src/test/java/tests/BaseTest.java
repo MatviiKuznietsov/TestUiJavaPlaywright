@@ -21,11 +21,11 @@ public class BaseTest {
         page = context.newPage();
     }
 
-//    @AfterClass
-//    public void tearDown() {
-//        page.close();
-//        context.close();
-//        browser.close();
-//        playwright.close();
-//    }
+    @AfterClass
+    public void tearDown() {
+        page.close();
+        context.close();
+        browser.close();
+        playwright.close();
+    }
 }
