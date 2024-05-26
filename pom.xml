@@ -48,8 +48,6 @@
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
         </dependency>
-
-
     </dependencies>
     <build>
         <plugins>
