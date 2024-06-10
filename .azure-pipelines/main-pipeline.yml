@@ -14,7 +14,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 jobs:
-  test:
+  - job: test
     timeoutInMinutes: 60
 
     steps:
