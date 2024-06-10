@@ -1,0 +1,58 @@
+trigger:
+  branches:
+    include:
+      - main
+      - master
+
+pr:
+  branches:
+    include:
+      - main
+      - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+  test:
+    timeoutInMinutes: 60
+
+    steps:
+      - task: Checkout@2
+        displayName: 'Checkout code'
+
+      - task: UseJava@1
+        inputs:
+          versionSpec: '20'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+        displayName: 'Set up Java'
+
+      - task: UseNode@1
+        inputs:
+          version: '20.12.2'
+        displayName: 'Set up Node.js'
+
+      - script: |
+          mvn -B install -D skipTests --no-transfer-progress
+        displayName: 'Build & Install'
+
+      - script: |
+          mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+        displayName: 'Install Playwright'
+
+      - script: |
+          mvn test
+        displayName: 'Run tests'
+        env:
+          MY_APP_PASSWORD: $(MY_APP_PASSWORD)
+
+      - script: |
+          mvn allure:report
+        displayName: 'Generate Allure Report'
+
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Build.SourcesDirectory)/target/site/allure-maven-plugin'
+          artifact: 'allure-report'
+        displayName: 'Upload Allure Report'

@@ -8,7 +8,7 @@ public class DataProvider {
     public static final String PASSWORD2 = "secret_sauce";
     public static final String INVALID_PASSWORD = "#$##%";
     public static final String INVALID_NAME = "#$##%";
-    public static final Integer DELAY_50 = 25;
+    public static final Integer DELAY_50 = 50;
     public static final String ERROR_MSG_USER_LOCK = "Epic sadface: Sorry, this user has been locked out.";
     public static final String ERROR_MSG_EMPTY_USER = "Epic sadface: Username is required";
     public static final String ERROR_MSG_EMPTY_PASSWORD = "Epic sadface: Password is required";
