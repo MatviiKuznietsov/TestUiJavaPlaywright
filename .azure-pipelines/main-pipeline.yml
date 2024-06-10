@@ -21,11 +21,10 @@ jobs:
       - checkout: self
         displayName: 'Checkout code'
 
-      - task: UseJavaVersion@0
-        inputs:
-          versionSpec: '20'
-          jdkArchitectureOption: 'x64'
-        displayName: 'Set up Java'
+      - script: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-20-jdk
+        displayName: 'Install Java'
 
       - task: UseNode@1
         inputs:
