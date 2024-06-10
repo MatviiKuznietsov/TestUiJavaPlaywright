@@ -18,10 +18,10 @@ jobs:
     timeoutInMinutes: 60
 
     steps:
-      - task: checkout@v2
+      - checkout: self
         displayName: 'Checkout code'
 
-      - task: JavaToolInstaller@0
+      - task: UseJavaVersion@0
         inputs:
           versionSpec: '20'
           jdkArchitectureOption: 'x64'
